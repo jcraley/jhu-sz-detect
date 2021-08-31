@@ -71,6 +71,8 @@ def onset_zone_to_lateralization(onset_zone):
     """
 
     # Set target to 0, 1
+    if onset_zone == -1:
+        return -1
     if onset_zone == 1 or onset_zone == 3:
         return 0
     if onset_zone == 2 or onset_zone == 4:
@@ -88,6 +90,8 @@ def onset_zone_to_lobe(onset_zone):
     """
 
     # Set target to 0, 1
+    if onset_zone == -1:
+        return -1
     if onset_zone == 1 or onset_zone == 2:
         return 0
     if onset_zone == 3 or onset_zone == 4:
@@ -303,8 +307,8 @@ class EpilepsyDataset(Dataset):
             sample['labels'] = self.labels[buffer_idx][window_number]
             sample['filename'] = self.filenames[buffer_idx]
             sample['onset zones'] = self.onset_zones[buffer_idx]
-            sample['lateralization'] = self.lateralizations[idx]
-            sample['lobe'] = self.lobes[idx]
+            sample['lateralization'] = self.lateralizations[buffer_idx]
+            sample['lobe'] = self.lobes[buffer_idx]
             sample['patient numbers'] = self.patient_numbers[buffer_idx]
             if self.features:
                 sample['buffers'] = self.data[idx]
